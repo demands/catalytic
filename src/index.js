@@ -40,3 +40,5 @@ export default function buildConverter(options) {
     }
   }
 }
+
+module.exports = buildConverter
