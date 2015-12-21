@@ -1,8 +1,6 @@
 import assert from 'assert'
 import catalytic from '../src'
 
-console.log(Object.keys(catalytic))
-
 describe('converters', () => {
   it('works like the readme promises', () => {
     var steakConverter = catalytic({
