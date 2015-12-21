@@ -1,6 +1,6 @@
 {
   "name": "catalytic",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Convert between arbitrary units with BigNumber math",
   "main": "lib/index.js",
   "scripts": {
