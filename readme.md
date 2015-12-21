@@ -1,4 +1,4 @@
-# catalytic - a module for your unit conversion needs
+# catalytic - a module for your unit conversion needs [![Build Status](https://travis-ci.org/goodeggs/catalytic.svg?branch=master)](https://travis-ci.org/goodeggs/catalytic)
 
 ## Features
 
