@@ -2,7 +2,18 @@ import BigNumber from 'bignumber.js'
 import assert from 'assert'
 import indexBy from 'lodash.indexby'
 
-export default function buildConverter(options) {
+export default converter
+module.exports = converter
+
+function convertFrom({count, unitQty}) {
+  return new BigNumber(count).times(unitQty).toNumber()
+}
+
+function convertTo({count, unitQty}) {
+  return new BigNumber(count).dividedBy(unitQty).toNumber()
+}
+
+function converter(options) {
   const typesById = indexBy(options.types, 'id')
 
   options.types.forEach(t => {
@@ -11,34 +22,31 @@ export default function buildConverter(options) {
     assert(typeof t.qty === 'number', `Type ${t.id} has an associated qty that is not numeric (${JSON.stringify(t.qty)})`)
   })
 
-  function valConvertTo(count, type) {
-    return new BigNumber(count).dividedBy(type.qty).toNumber()
-  }
-
-  function valConvertFrom(count, type) {
-    return new BigNumber(count).times(type.qty).toNumber()
-  }
 
   return {
     convertTo: function(count, typeId) {
-      return valConvertTo(count, typesById[typeId])
+      const type = typesById[typeId]
+      return convertTo({count, unitQty: type.qty})
     },
 
     strConvertTo: function(count, typeId) {
       const type = typesById[typeId]
-      const value = valConvertTo(count, type)
+      const value = convertTo({count, unitQty: type.qty})
       return `${value} x ${type.name}`
     },
 
     convertFrom: function(count, typeId) {
-      return valConvertFrom(count, typesById[typeId])
+      const type = typesById[typeId]
+      return convertFrom({count, unitQty: type.qty})
     },
 
     strConvertFrom: function(count, typeId) {
-      const value = valConvertFrom(count, typesById[typeId])
+      const type = typesById[typeId]
+      const value = convertFrom({count, unitQty: type.qty})
       return `${value} x ${options.baseUnitName}`
     }
   }
 }
 
-module.exports = buildConverter
+converter.convertFromUnitQty = convertFrom
+converter.convertToUnitQty = convertTo

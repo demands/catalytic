@@ -29,6 +29,15 @@ converter.convertFrom(2, 'id1') // => 100
 converter.strConvertFrom(5, 'id1') // "250 x lb"
 ```
 
+There's also some basic methods for easy conversion without an object:
+
+```javascript
+var catalytic = require('catalytic')
+
+catalytic.convertFromUnitQty({count: 5, unitQty: 10}) // => 50
+catalytic.convertToUnitQty({count: 50, unitQty: 10}) // => 5
+```
+
 ## Contributing
 
 This module is written in ES2015 and converted to node-friendly CommonJS via
