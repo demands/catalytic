@@ -37,7 +37,7 @@ describe('converters', () => {
 
 describe('convert() method', () => {
   it('works like the readme promises', () => {
-    assert.equal(catalytic.convertFromUnitQty({count: 5, unitQty: 10}), 50)
-    assert.equal(catalytic.convertToUnitQty({count: 50, unitQty: 10}), 5)
+    assert.equal(catalytic.convertToUnitQty({count: 5, unitQty: 10}), 50)
+    assert.equal(catalytic.convertFromUnitQty({count: 50, unitQty: 10}), 5)
   })
 })

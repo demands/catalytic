@@ -5,12 +5,20 @@ import indexBy from 'lodash.indexby'
 export default converter
 module.exports = converter
 
-function convertFrom({count, unitQty}) {
-  return new BigNumber(count).times(unitQty).toNumber()
+function mult(a, b) {
+  return new BigNumber(a).times(b).toNumber()
 }
 
-function convertTo({count, unitQty}) {
-  return new BigNumber(count).dividedBy(unitQty).toNumber()
+function div(a, b) {
+  return new BigNumber(a).dividedBy(b).toNumber()
+}
+
+function convertFromUnitQty({count, unitQty}) {
+  return div(count, unitQty)
+}
+
+function convertToUnitQty({count, unitQty}) {
+  return mult(count, unitQty)
 }
 
 function converter(options) {
@@ -26,27 +34,27 @@ function converter(options) {
   return {
     convertTo: function(count, typeId) {
       const type = typesById[typeId]
-      return convertTo({count, unitQty: type.qty})
+      return div(count, type.qty)
     },
 
     strConvertTo: function(count, typeId) {
       const type = typesById[typeId]
-      const value = convertTo({count, unitQty: type.qty})
+      const value = div(count, type.qty)
       return `${value} x ${type.name}`
     },
 
     convertFrom: function(count, typeId) {
       const type = typesById[typeId]
-      return convertFrom({count, unitQty: type.qty})
+      return mult(count, type.qty)
     },
 
     strConvertFrom: function(count, typeId) {
       const type = typesById[typeId]
-      const value = convertFrom({count, unitQty: type.qty})
+      const value = mult(count, type.qty)
       return `${value} x ${options.baseUnitName}`
     }
   }
 }
 
-converter.convertFromUnitQty = convertFrom
-converter.convertToUnitQty = convertTo
+converter.convertFromUnitQty = convertFromUnitQty
+converter.convertToUnitQty = convertToUnitQty

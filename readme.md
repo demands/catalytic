@@ -34,8 +34,8 @@ There's also some basic methods for easy conversion without an object:
 ```javascript
 var catalytic = require('catalytic')
 
-catalytic.convertFromUnitQty({count: 5, unitQty: 10}) // => 50
-catalytic.convertToUnitQty({count: 50, unitQty: 10}) // => 5
+catalytic.convertToUnitQty({count: 5, unitQty: 10}) // => 50
+catalytic.convertFromUnitQty({count: 50, unitQty: 10}) // => 5
 ```
 
 ## Contributing
