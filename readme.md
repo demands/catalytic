@@ -29,11 +29,20 @@ converter.convertFrom(2, 'id1') // => 100
 converter.strConvertFrom(5, 'id1') // "250 x lb"
 ```
 
+If you're converting from/to undefined, we assume you're converting from/to the
+base unit (ie, not changing anything):
+
+```javascript
+converter.convertTo(100) // => 100
+converter.strConvertTo(100) // => "100 x lb"
+
+converter.convertFrom(10) // => 10
+converter.strConvertFrom(10) // => "10 x lb"
+```
+
 There's also some basic methods for easy conversion without an object:
 
 ```javascript
-var catalytic = require('catalytic')
-
 catalytic.convertToUnitQty({count: 5, unitQty: 10}) // => 50
 catalytic.convertFromUnitQty({count: 50, unitQty: 10}) // => 5
 ```
