@@ -40,8 +40,14 @@ describe('stateful converters', function() {
       assert.equal(this.converter.convertFrom(5, undefined), 5)
       assert.equal(this.converter.strConvertFrom(5, undefined), "5 x lb")
     })
-  })
 
+    it('complains when trying to convert from/to a unit that has not been registered', function() {
+      assert.throws(() => this.converter.convertFrom(5, 'not_exist'), /not_exist is not a valid type/)
+      assert.throws(() => this.converter.strConvertFrom(5, 'not_exist'), /not_exist is not a valid type/)
+      assert.throws(() => this.converter.convertTo(5, 'not_exist'), /not_exist is not a valid type/)
+      assert.throws(() => this.converter.strConvertTo(5, 'not_exist'), /not_exist is not a valid type/)
+    })
+  })
 
   describe('trying to create a converter with invalid input', function() {
     it('complains if type.id is not provided', function() {

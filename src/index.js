@@ -37,26 +37,29 @@ function converter(options) {
     }
   }
 
+  function getType(typeId) {
+    const type = typesById[typeId]
+    if(type === undefined) { throw new Error(`${typeId} is not a valid type`) }
+    return type
+  }
+
   return {
     convertTo: function(count, typeId) {
-      const type = typesById[typeId]
-      return div(count, type.qty)
+      return div(count, getType(typeId).qty)
     },
 
     strConvertTo: function(count, typeId) {
-      const type = typesById[typeId]
+      const type = getType(typeId)
       const value = div(count, type.qty)
       return `${value} x ${type.name}`
     },
 
     convertFrom: function(count, typeId) {
-      const type = typesById[typeId]
-      return mult(count, type.qty)
+      return mult(count, getType(typeId).qty)
     },
 
     strConvertFrom: function(count, typeId) {
-      const type = typesById[typeId]
-      const value = mult(count, type.qty)
+      const value = mult(count, getType(typeId).qty)
       return `${value} x ${options.baseUnitName}`
     }
   }
