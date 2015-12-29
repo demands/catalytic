@@ -51,16 +51,25 @@ describe('stateful converters', function() {
 
   describe('trying to create a converter with invalid input', function() {
     it('complains if type.id is not provided', function() {
-      assert.throws(() => converter({types: [{qty: 10}]}))
+      assert.throws(() => catalytic({types: [{qty: 10}]}), /without an id/)
     })
 
     it('complains if type.qty is not provided', function() {
-      assert.throws(() => converter({types: [{id: 'stuff'}]}))
+      assert.throws(() => catalytic({types: [{id: 'stuff'}]}), /does not have an associated qty/)
     })
 
     it('complains if type.qty is not a number or a BigNumber', function() {
-      assert.throws(() => converter({types: [{id: 'stuff', qty: '1000'}]}))
+      assert.throws(() => catalytic({types: [{id: 'stuff', qty: '1000'}]}), /qty that is not numeric/)
     })
+
+    it('complains if type.qty is 0', function() {
+      assert.throws(() => catalytic({types: [{id: 'stuff', qty: 0}]}), /not a positive number/)
+    })
+
+    it('complains if type.qty negative', function() {
+      assert.throws(() => catalytic({types: [{id: 'stuff', qty: -102}]}), /not a positive number/)
+    })
+
   })
 })
 

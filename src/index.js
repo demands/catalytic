@@ -24,8 +24,9 @@ function convertToUnitQty({count, unitQty}) {
 function converter(options) {
   options.types.forEach(t => {
     assert(t.id, `Type provided without an id`)
-    assert(t.qty, `Type ${t.id} does not have an associated qty`)
+    assert(t.qty !== undefined, `Type ${t.id} does not have an associated qty`)
     assert(typeof t.qty === 'number', `Type ${t.id} has an associated qty that is not numeric (${JSON.stringify(t.qty)})`)
+    assert(t.qty > 0, `Type ${t.id} has a qty that is not a positive number (${t.qty})`)
   })
 
   const typesById = indexBy(options.types, 'id')
