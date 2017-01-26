@@ -39,6 +39,7 @@ function converter(options) {
   }
 
   function getType(typeId) {
+    if (typeId === null) { typeId = undefined }
     const type = typesById[typeId]
     if(type === undefined) { throw new Error(`${typeId} is not a valid type`) }
     return type
