@@ -29,8 +29,8 @@ converter.convertFrom(2, 'id1') // => 100
 converter.strConvertFrom(5, 'id1') // "250 x lb"
 ```
 
-If you're converting from/to undefined, we assume you're converting from/to the
-base unit (ie, not changing anything):
+If you're converting from/to `undefined` or `null`, we assume you're converting
+from/to the base unit (i.e., not changing anything):
 
 ```javascript
 converter.convertTo(100) // => 100
